@@ -1,0 +1,14 @@
+torch
+transformers
+einops
+timm
+easyocr
+torchvision
+numpy
+opencv-python-headless
+ultralytics
+fastapi
+pydantic
+uvicorn
+python-multipart
+supervision

@@ -1,0 +1,4 @@
+{
+  "box_threshold": 0.1,
+  "iou_threshold": 0.5
+}
