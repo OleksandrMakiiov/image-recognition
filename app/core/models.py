@@ -18,6 +18,8 @@ class ImageElement:
 class RecognitionSettings(BaseModel):
     box_threshold: float = 0.05
     iou_threshold: float = 0.5
+    use_object_capturing: bool = True
+    capture_batch_size: int = 128
 
 
 class RecognizedObject(BaseModel):

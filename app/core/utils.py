@@ -90,7 +90,7 @@ def remove_overlap(obj_boxes, ocr_boxes, iou_threshold):
 
         else:
             boxes.append(box1_elem)
-            print(f"Overlay box {box1_elem}")
+            # print(f"Overlay box {box1_elem}")
 
     return boxes
 
