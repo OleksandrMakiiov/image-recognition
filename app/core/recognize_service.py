@@ -1,3 +1,5 @@
+import time
+
 import numpy as np
 import torch
 from fastapi import File
@@ -23,19 +25,27 @@ async def get_all_objects(image_file: File, settings: RecognitionSettings):
     w, h = image.size
 
     # 1 use OCR
+    start_time = time.time()
     ocr_elements = recognize_text(image)
+    print(f"OCR time: {time.time() - start_time}")
 
     # 2 use YOLO detection
+    start_time = time.time()
     obj_elements = detect_objects(image, f"{MODELS_PATH}/icon_detect/model.pt", settings.box_threshold,
                                   settings.iou_threshold)
+    print(f"YOLO detection time: {time.time() - start_time}")
 
     # 3 match and remove boxes in boxes
+    start_time = time.time()
     elements = remove_overlap(obj_elements, ocr_elements, settings.iou_threshold)
+    print(f"Process overlaps time: {time.time() - start_time}")
 
     # 4 capture elements without text
     if settings.use_object_capturing:
+        start_time = time.time()
         image_np = np.array(image)
         capture(elements, image_np, batch_size=settings.capture_batch_size)
+        print(f"Image capturing time: {time.time() - start_time}")
 
     recognized_objects = []
     for el in elements:
