@@ -6,11 +6,12 @@ import torch
 from transformers import AutoProcessor, AutoModelForCausalLM
 
 MODELS_PATH = os.getenv("MODELS_PATH", "./../models")
+IS_MPS_AVAILABLE = os.getenv("IS_MPS_AVAILABLE", "True") == "True"
 
 model_name_or_path = f"{MODELS_PATH}/icon_caption_florence"
 # model_name_or_path = "microsoft/Florence-2-base-ft"
 
-device = "cuda:0" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+device = "cuda:0" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() and IS_MPS_AVAILABLE else "cpu"
 # device = "cpu"
 torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
@@ -39,7 +40,7 @@ def capture(elements, image_source, batch_size=128):
             xmin, xmax = int(coord[0] * image_source.shape[1]), int(coord[2] * image_source.shape[1])
             ymin, ymax = int(coord[1] * image_source.shape[0]), int(coord[3] * image_source.shape[0])
             cropped_image = image_source[ymin:ymax, xmin:xmax, :]
-            cropped_image = cv2.resize(cropped_image, (32, 32))
+            # cropped_image = cv2.resize(cropped_image, (32, 32))
             croped_images_np.append(cropped_image)
         except:
             continue

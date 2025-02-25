@@ -15,9 +15,6 @@ from app.core.utils import denormalize_bbox
 from app.core.utils import load_image
 from app.core.utils import remove_overlap
 
-import os
-
-MODELS_PATH = os.getenv("MODELS_PATH", "./../models")
 
 
 async def get_all_objects(image_file: File, settings: RecognitionSettings):
@@ -31,7 +28,7 @@ async def get_all_objects(image_file: File, settings: RecognitionSettings):
 
     # 2 use YOLO detection
     start_time = time.time()
-    obj_elements = detect_objects(image, f"{MODELS_PATH}/icon_detect/model.pt", settings.box_threshold,
+    obj_elements = detect_objects(image, settings.box_threshold,
                                   settings.iou_threshold)
     print(f"YOLO detection time: {time.time() - start_time}")
 

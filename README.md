@@ -14,6 +14,26 @@
 
 ## Installation and Running
 
+### Install AI Models
+Follow these steps to download and setup YOLO and Florence-2 models:
+
+1. Visit the [OmniParser page on Hugging Face](https://huggingface.co/microsoft/OmniParser).
+2. Download the `icon_caption_florence` and `icon_detect` folders.
+3. Copy these folders to the `models` directory on your device.
+
+To ensure the models function correctly, specify the path to the models directory in an environment variable:
+```
+MODELS_PATH={path_to_models_directory}
+```
+Replace `{path_to_models_directory}` with the actual path to the directory where the models are stored.
+
+### MPS Support Configuration
+If you are using an older Apple device with Metal Performance Shaders (MPS) support but with limited RAM, you can disable MPS support by setting this environment variable:
+```
+IS_MPS_AVAILABLE=False
+```
+This disables the use of MPS which can help to avoid performance issues on devices with low memory.
+
 ### Running without Docker
 1. Install dependencies:
     ```sh

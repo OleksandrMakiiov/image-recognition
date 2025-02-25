@@ -13,19 +13,16 @@ from app.core.utils import center_calc
 from app.core.utils import int_box_area
 from app.core.utils import load_gray_image
 
+OCR_READER = easyocr.Reader(['en'])
 
 # EasyOCR
-def recognize_text(image, text_threshold=0.8, languages=None):
-    if languages is None:
-        languages = ['en']
-
+def recognize_text(image, text_threshold=0.8):
     w, h = image.size
     image_np = np.array(image)
 
-    reader = easyocr.Reader(languages)
     easyocr_args = {'text_threshold': text_threshold}
 
-    result = reader.readtext(image_np, **easyocr_args)
+    result = OCR_READER.readtext(image_np, **easyocr_args)
     coord = [item[0] for item in result]
     text = [item[1] for item in result]
 
