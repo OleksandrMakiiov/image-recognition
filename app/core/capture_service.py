@@ -8,7 +8,7 @@ from transformers import AutoProcessor, AutoModelForCausalLM
 MODELS_PATH = os.getenv("MODELS_PATH", "./../models")
 IS_MPS_AVAILABLE = os.getenv("IS_MPS_AVAILABLE", "True") == "True"
 
-model_name_or_path = f"{MODELS_PATH}/icon_caption_florence"
+model_name_or_path = f"{MODELS_PATH}/icon_caption"
 # model_name_or_path = "microsoft/Florence-2-base-ft"
 
 device = "cuda:0" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() and IS_MPS_AVAILABLE else "cpu"

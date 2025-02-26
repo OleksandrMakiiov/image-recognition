@@ -30,7 +30,7 @@ OR use CLI (run it in `image-recognition` working folder):
 ```commandline
 rm -rf models/icon_detect models/icon_caption models/icon_caption_florence 
 for folder in icon_caption icon_detect; do huggingface-cli download microsoft/OmniParser-v2.0 --local-dir models --repo-type model --include "$folder/*"; done
-mv models/icon_caption models/icon_caption_florence
+mv models/icon_caption models/icon_caption
 ```
 
 To ensure the models function correctly, specify the path to the models directory in an environment variable:
