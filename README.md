@@ -30,7 +30,6 @@ OR use CLI (run it in `image-recognition` working folder):
 ```commandline
 rm -rf models/icon_detect models/icon_caption models/icon_caption_florence 
 for folder in icon_caption icon_detect; do huggingface-cli download microsoft/OmniParser-v2.0 --local-dir models --repo-type model --include "$folder/*"; done
-mv models/icon_caption models/icon_caption
 ```
 
 To ensure the models function correctly, specify the path to the models directory in an environment variable:
@@ -73,6 +72,17 @@ This disables the use of MPS which can help to avoid performance issues on devic
     ```sh
     docker run -d -p 8000:8000 --name image-recognition image-recognition
     ```
+
+### Express install & run (MacOS)
+Open terminal in `image-recognition` dir and run: 
+   ```commandline
+   python -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   for folder in icon_caption icon_detect; do huggingface-cli download microsoft/OmniParser-v2.0 --local-dir models --repo-type model --include "$folder/*"; done
+   export MODELS_PATH=./models
+   uvicorn app.main:app --host 0.0.0.0 --port 8000
+   ```
 
 ---
 
